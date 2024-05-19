@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "62587018666",
+    "firebase_url": "https://fluttercab-cfd85-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fluttercab-cfd85",
+    "storage_bucket": "fluttercab-cfd85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62587018666:android:88625057c2d3e0b8f65fd3",
+        "android_client_info": {
+          "package_name": "com.example.flutter_cab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgjscFYwuJSofUfPCrsFjCzh9OfCq8neI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
