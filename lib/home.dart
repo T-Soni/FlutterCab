@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   signOut() async {
     await auth.signOut();
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        context, MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 
   @override
@@ -28,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           signOut();
         },
-        child: Icon(Icons.logout_rounded),
         backgroundColor: Colors.green,
+        child: const Icon(Icons.logout_rounded),
       ),
       body: Center(
         child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'auth_gate.dart';
+import 'package:flutter_cab/Pages/login_page.dart';
+//import 'auth_gate.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,10 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const AuthGate(),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.amber,
+      // ),
+      // home: const AuthGate(),
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
     );
   }
 }

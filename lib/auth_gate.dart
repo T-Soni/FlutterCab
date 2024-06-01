@@ -16,19 +16,20 @@ class AuthGate extends StatelessWidget {
             providers: [
               EmailAuthProvider(),
             ],
+            
             headerBuilder: (context, constraints, shrinkOffset) {
-              return Padding(
-                padding: const EdgeInsets.all(20),
+              return const Padding(
+                padding: EdgeInsets.all(20),
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Image.asset('assets/flutterfire_300x.png'),
+                  //child: Image.asset('assets/flutterfire_300x.png'),
                 ),
               );
             },
           );
         }
 
-        return  HomeScreen();
+        return  const HomeScreen();
       },
     );
   }
