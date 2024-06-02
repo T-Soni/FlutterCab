@@ -8,10 +8,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      // theme: ThemeData(
-      //   primarySwatch: Colors.amber,
-      // ),
-      // home: const AuthGate(),
       debugShowCheckedModeBanner: false,
       home: AuthPage(),
     );

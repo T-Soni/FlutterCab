@@ -18,14 +18,14 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: signUserOut,
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           )
         ],
       ),
       body: Center(
         child: Text(
-          "LOGGED IN as: " + user.email!,
-          style: TextStyle(fontSize: 20),
+          "LOGGED IN as: ${user.email!}",
+          style: const TextStyle(fontSize: 20),
           )
           ),
     );
