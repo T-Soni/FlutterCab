@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cab/services/auth_service.dart';
 import '../Components/my_button.dart';
 import '../Components/my_textfield.dart';
 import '../Components/square_tile.dart';

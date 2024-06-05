@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SquareTile extends StatelessWidget {
   final String imagePath;
-  final FUnctions()? onTap;
+    final Function()?onTap;
   const SquareTile({
     super.key,
     required this.imagePath,
