@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Pages/forgot_password_page.dart';
+import 'package:flutter_cab/services/auth_service.dart';
 import '../Components/my_button.dart';
 import '../Components/my_textfield.dart';
 import '../Components/square_tile.dart';
@@ -188,12 +189,14 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
 
                 //google sign in button
-                const Row(
+                Row(
                   
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
-                    SquareTile(imagePath: 'lib/Images/google_logo.png'),
+                    SquareTile(
+                      onTap: () => AuthService().signInWithGoogle(),
+                      imagePath: 'lib/Images/google_logo.png'),
                   ]
                 ),
 

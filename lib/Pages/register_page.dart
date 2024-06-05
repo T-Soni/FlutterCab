@@ -178,12 +178,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 25),
 
                 //google sign in button
-                const Row(
+                Row(
                   
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
-                    SquareTile(imagePath: 'lib/Images/google_logo.png'),
+                    SquareTile(
+                      onTap: () => AuthService().signInWithGoogle(),
+                      imagePath: 'lib/Images/google_logo.png'),
                   ]
                 ),
 
