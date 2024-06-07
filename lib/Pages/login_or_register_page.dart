@@ -44,7 +44,8 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
                     child: Text('User',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold),),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: role == 'user' ? Colors.amber : Colors.grey,
                     ),
@@ -55,7 +56,8 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
                     child: Text('Driver',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold),),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: role == 'driver' ? Colors.amber : Colors.grey,
                     ),

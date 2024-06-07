@@ -101,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   size: 80,
                 ),
         
-                const SizedBox(height: 7),
+                const SizedBox(height: 5),
                 
                 //Log In
                 Text(
@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 
-                const SizedBox(height: 25),
+                const SizedBox(height: 15),
         
                 //username textfield
                 MyTextField(
