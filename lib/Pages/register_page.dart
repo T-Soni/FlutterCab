@@ -10,7 +10,8 @@ import '../Components/square_tile.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()?onTap;
-  const RegisterPage({super.key, required this.onTap});
+  final String role;
+  const RegisterPage({super.key, required this.onTap, required this.role});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -92,19 +93,19 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 20),
+                //const SizedBox(height: 10),
                 //logo
                 const Icon(
                   Icons.directions_car,
                   color: Colors.amber,
-                  size: 90,
+                  size: 80,
                 ),
         
-                const SizedBox(height: 25),
+                const SizedBox(height: 7),
                 
                 //Log In
                 Text(
-                  'Register',
+                  'Register as ${widget.role == 'user' ? 'User' : 'Driver'}',
                   style: TextStyle(
                     color: Colors.amber[700],
                     fontSize: 25,

@@ -11,7 +11,8 @@ import '../Components/square_tile.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()?onTap;
-  const LoginPage({super.key, required this.onTap});
+  final String role;
+  const LoginPage({super.key, required this.onTap, required this.role});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -85,19 +86,19 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 30),
+                //const SizedBox(height: 30),
                 //logo
                 const Icon(
                   Icons.directions_car,
                   color: Colors.amber,
-                  size: 100,
+                  size: 80,
                 ),
         
-                const SizedBox(height: 30),
+                const SizedBox(height: 7),
                 
                 //Log In
                 Text(
-                  'Log In',
+                  'Log In as ${widget.role == 'user' ? 'User' : 'Driver'}',
                   style: TextStyle(
                     color: Colors.amber[700],
                     fontSize: 25,

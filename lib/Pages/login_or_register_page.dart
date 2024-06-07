@@ -12,6 +12,7 @@ class LoginOrRegisterPage extends StatefulWidget {
 class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
   //initially show login page
   bool showLoginPage = true;
+  String role = 'user'; //default role
 
   //toggle between login and register page
   void togglePages(){
@@ -19,16 +20,63 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
       showLoginPage = !showLoginPage;
     });
   }
+
+  void setRole(String selectedRole) {
+    setState(() {
+      role = selectedRole;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    if (showLoginPage) {
-      return LoginPage(
-        onTap: togglePages,
-      );
-    } else {
-      return RegisterPage(
-        onTap: togglePages,
-      );
-    }
+    return Scaffold(
+      backgroundColor: Colors.grey[300],
+      body: SafeArea(
+        child: Column(
+          children: [
+            //Role selection buttons
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => setRole('user'),
+                    child: Text('User',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: role == 'user' ? Colors.amber : Colors.grey,
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () => setRole('driver'),
+                    child: Text('Driver',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: role == 'driver' ? Colors.amber : Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: showLoginPage
+                  ? LoginPage(
+                    onTap: togglePages,
+                    role: role,
+                  )
+                : RegisterPage(
+                  onTap: togglePages,
+                  role: role,
+                ),
+              )
+          ],
+        ),
+      ),
+    );
   }
 }
