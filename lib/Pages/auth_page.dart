@@ -51,13 +51,25 @@ class AuthPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("User not found"),
+                        const Text("User not found",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),),
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
                             FirebaseAuth.instance.signOut();
                           },
-                          child: const Text("Go to Login/Register"),
+                          
+                          child: const Text("Go to Login/Register",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber,
+                            ),
                         ),
                       ],
                     ),
