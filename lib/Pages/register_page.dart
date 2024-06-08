@@ -1,5 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/services/auth_service.dart';
@@ -39,17 +39,26 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       //check if password is confirmed
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
         
       );
+
+      //saving the user role in firestore
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
+        'email': emailController.text,
+        'role':widget.role,
+      });
+
+        Navigator.pop(context);
       } else {
+        Navigator.pop(context);
         // show error message
         showErrorMessage("Passwords don't match");
       }
       // pop the loading circle
-      Navigator.pop(context);
+      
     } on FirebaseAuthException catch (e) {
       // pop the loading circle
       Navigator.pop(context);

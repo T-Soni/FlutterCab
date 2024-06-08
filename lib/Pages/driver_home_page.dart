@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-   HomePage({super.key});
+class DriverHomePage extends StatelessWidget {
+   DriverHomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -14,7 +14,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        title: Text('Flutter Cab',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),),
+        backgroundColor: Colors.amber,
         actions: [
           IconButton(
             onPressed: signUserOut,
@@ -22,9 +29,11 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
+      body: 
+      
+      Center(
         child: Text(
-          "LOGGED IN as: ${user.email!}",
+          "Driver logged in as: ${user.email!}",
           style: const TextStyle(fontSize: 20),
           )
           ),
