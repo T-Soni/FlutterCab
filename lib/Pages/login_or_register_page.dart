@@ -41,26 +41,26 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () => setRole('user'),
-                    child: Text('User',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: role == 'user' ? Colors.amber : Colors.grey,
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () => setRole('driver'),
-                    child: Text('Driver',
+                    child: const Text('User',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () => setRole('driver'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: role == 'driver' ? Colors.amber : Colors.grey,
                     ),
+                    child: const Text('Driver',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),),
                   ),
                 ],
               ),

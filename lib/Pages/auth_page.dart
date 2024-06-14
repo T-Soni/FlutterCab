@@ -2,12 +2,47 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_cab/Pages/login_or_register_page.dart';
 import 'package:flutter_cab/Pages/user_home_page.dart';
 import 'package:flutter_cab/Pages/driver_home_page.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
+
+  void _showPopupAndNavigate(BuildContext context){
+    showDialog( context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+     return AlertDialog(
+      backgroundColor: Colors.grey[200],
+      title: Center(
+        child: const Text("Sorry",
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        )),
+      ),
+      
+      content: const Text("You do not have the required permissions.",
+      style: TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      )),
+     ); 
+    },
+   );
+
+   Future.delayed(Duration(seconds: 5), () {
+    Navigator.of(context).pop(); //close the dialog
+    Navigator.pushReplacement(
+      context, 
+      MaterialPageRoute(builder: (context) => UserHomePage()),
+      );
+   });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +71,28 @@ class AuthPage extends StatelessWidget {
                     child: Text("Something went wrong")
                     );
                 } else if (snapshot.hasData && snapshot.data!.exists) {
-                  var userRole = snapshot.data!['role'];
-                  if (userRole == 'user') {
+                  var isDriver = snapshot.data!['driver'];
+                  if (isDriver == true) {
+                    if(snapshot.data!['role']=='driver') {
+                      return DriverHomePage();
+                    } else {
+                      // show the popup and navigate after 5s
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        _showPopupAndNavigate(context);
+                      });
+                      return Container();
+                    }
+                  } 
+                  else if (isDriver == false) {
                     return UserHomePage();
                   } 
-                  else if (userRole == 'driver') {
-                    return DriverHomePage();
-                  } 
                   else {
-                    return const Center(child: Text("Unknown role"));
+                    return const Center(
+                      child: Text(
+                        "Unknown role",
+                        style: TextStyle(
+                          fontSize: 18,
+                        )));
                   }
                 } else {
                   return Center(
@@ -60,6 +108,9 @@ class AuthPage extends StatelessWidget {
                           onPressed: () {
                             FirebaseAuth.instance.signOut();
                           },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber,
+                            ),
                           
                           child: const Text("Go to Login/Register",
                           style: TextStyle(
@@ -67,9 +118,6 @@ class AuthPage extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.amber,
-                            ),
                         ),
                       ],
                     ),

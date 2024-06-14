@@ -16,7 +16,7 @@ class UserHomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text('Flutter Cab',
+        title: const Text('Flutter Cab',
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,

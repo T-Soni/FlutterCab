@@ -48,7 +48,8 @@ class _RegisterPageState extends State<RegisterPage> {
       //saving the user role in firestore
       await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
         'email': emailController.text,
-        'role':widget.role,
+        'role':'user',
+        'driver':widget.role == 'driver'? true: false,
       });
 
         Navigator.pop(context);
