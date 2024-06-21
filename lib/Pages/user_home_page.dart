@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter_cab/Pages/map_page.dart';
 
 class UserHomePage extends StatelessWidget {
    UserHomePage({super.key});
@@ -16,10 +17,11 @@ class UserHomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Flutter Cab',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
+        title: const Text(
+          'Flutter Cab',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
         ),),
         backgroundColor: Colors.amber,
         actions: [
@@ -31,7 +33,7 @@ class UserHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          "User logged in as: ${user.email!}",
+          "User is logged in as: ${user.email!}",
           style: const TextStyle(fontSize: 20),
           )
           ),

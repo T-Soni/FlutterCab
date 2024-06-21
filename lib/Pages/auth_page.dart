@@ -2,8 +2,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_cab/Pages/login_or_register_page.dart';
 import 'package:flutter_cab/Pages/user_home_page.dart';
 import 'package:flutter_cab/Pages/driver_home_page.dart';
@@ -17,8 +15,8 @@ class AuthPage extends StatelessWidget {
     builder: (BuildContext context) {
      return AlertDialog(
       backgroundColor: Colors.grey[200],
-      title: Center(
-        child: const Text("Sorry",
+      title: const Center(
+        child: Text("Sorry",
         style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
@@ -35,7 +33,7 @@ class AuthPage extends StatelessWidget {
     },
    );
 
-   Future.delayed(Duration(seconds: 5), () {
+   Future.delayed(const Duration(seconds: 5), () {
     Navigator.of(context).pop(); //close the dialog
     Navigator.pushReplacement(
       context, 
