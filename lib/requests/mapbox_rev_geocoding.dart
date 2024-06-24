@@ -9,8 +9,9 @@ String accessToken = dotenv.env['MAPBOX_ACCESS_TOKEN']!;
 
 Dio _dio = Dio();
 
-Future getReverseGeocodingGivenLatLngUsingMapbox(LatLng latlng) async {
-  String query = '${latlng.longitude},$latlng.latitude}';
+Future<Map<String, dynamic>> getReverseGeocodingGivenLatLngUsingMapbox(
+    LatLng latlng) async {
+  String query = '${latlng.longitude},${latlng.latitude}';
   String url = '$baseUrl/$query.json?access_token=$accessToken';
   url = Uri.parse(url).toString();
   print(url);
@@ -21,5 +22,6 @@ Future getReverseGeocodingGivenLatLngUsingMapbox(LatLng latlng) async {
   } catch (e) {
     final errorMessage = DioExceptions.fromDioError(e as DioError).toString();
     debugPrint(errorMessage);
+    return {}; //return an empty map in case of error
   }
 }
