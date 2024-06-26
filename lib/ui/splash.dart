@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Pages/auth_page.dart';
 import 'package:flutter_cab/main.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
+//import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../helpers/mapbox_handler.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,64 +21,93 @@ class _SplashState extends State<Splash> {
     initializeLocationAndSave();
   }
 
-void initializeLocationAndSave() async {
-  //Ensure all permissions are collected for locations
-  Location location = Location();
-  bool? serviceEnabled;
-  PermissionStatus? permissionGranted;
+  void initializeLocationAndSave() async {
+    //Ensure all permissions are collected for locations
 
-  serviceEnabled = await location.serviceEnabled();
-  if(!serviceEnabled){
-    serviceEnabled = (await location.requestService()) as bool?;
+    //Location location = Location();
+    bool? serviceEnabled;
+    //PermissionStatus? permissionGranted;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    // serviceEnabled = await location.serviceEnabled();
+    // if (!serviceEnabled) {
+    //   serviceEnabled = (await location.requestService()) as bool?;
+    // }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // permissionGranted = await location.hasPermission();
+    // if (permissionGranted == PermissionStatus.denied) {
+    //   permissionGranted = await location.requestPermission();
+    // }
+
+    // Get the current user location
+    Position locationData = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    // LocationData locationData = await location.getLocation();
+
+    LatLng currentLocation =
+        LatLng(locationData.latitude, locationData.longitude);
+    // LatLng(locationData.latitude!, locationData.longitude!);
+
+    // Get the current user address
+    String currentAddress =
+        (await getParsedReverseGeocoding(currentLocation))['place'];
+
+    //Store the user location in sharedPreferences
+    sharedPreferences.setDouble('latitude', locationData.latitude);
+    sharedPreferences.setDouble('longitude', locationData.longitude);
+    sharedPreferences.setString('current-address', currentAddress);
+
+    Navigator.pushAndRemoveUntil(
+        // ignore: use_build_context_synchronously
+        context,
+        MaterialPageRoute(builder: (_) => const AuthPage()),
+        (route) => false);
   }
-
-  permissionGranted = await location.hasPermission();
-  if(permissionGranted == PermissionStatus.denied) {
-    permissionGranted = await location.requestPermission();
-  }
-
-  // Get the current user location
-  LocationData locationData = await location.getLocation();
-  LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
-
-  // Get the current user address
-  String currentAddress = (await getParsedReverseGeocoding(currentLocation))['place'];
-
-  //Store the user location in sharedPreferences
-  sharedPreferences.setDouble('latitude', locationData.latitude!);
-  sharedPreferences.setDouble('longitude', locationData.longitude!);
-  sharedPreferences.setString('current-address', currentAddress);
-
-  Navigator.pushAndRemoveUntil(
-    // ignore: use_build_context_synchronously
-    context,
-    MaterialPageRoute(builder: (_) => const AuthPage()),
-    (route) => false
-  );
-}
 
   @override
   Widget build(BuildContext context) {
     return const Material(
       color: Colors.amber,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            CupertinoIcons.car_detailed,
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Icon(
+          CupertinoIcons.car_detailed,
+          color: Colors.black,
+          size: 120,
+        ),
+        Text(
+          'Flutter Cab',
+          style: TextStyle(
             color: Colors.black,
-            size: 120,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            'Flutter Cab',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ]
-      ),
+        ),
+      ]),
     );
   }
 }
