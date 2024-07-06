@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cab/ui/rate_ride.dart';
 
 class TurnByTurn extends StatefulWidget {
-  const TurnByTurn({Key? key}) : super(key: key);
+  const TurnByTurn({super.key});
 
   @override
   State<TurnByTurn> createState() => _TurnByTurnState();

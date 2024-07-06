@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Pages/prepare_ride.dart';
 import 'package:flutter_cab/helpers/shared_prefs.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -15,13 +15,22 @@ class UserHomePage extends StatefulWidget {
 class _UserHomePageState extends State<UserHomePage> {
   LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
   late String currentAddress;
-  late CameraPosition _initialCameraPosition;
+  late CameraOptions _initialCameraPosition;
 
   @override
   void initState() {
     super.initState();
+
     // Set initial camera position and current address
-    _initialCameraPosition = CameraPosition(target: currentLocation, zoom: 14);
+    _initialCameraPosition = CameraOptions(
+      center: Point(
+        coordinates: Position(
+          currentLocation.longitude,
+          currentLocation.latitude,
+        ),
+      ),
+      zoom: 14,
+    );
     currentAddress = getCurrentAddressFromSharedPrefs();
   }
 
@@ -54,11 +63,26 @@ class _UserHomePageState extends State<UserHomePage> {
       ),
       body: Stack(
         children: [
-          // MapboxMap added here and user location enabled
-          MapboxMap(
-            initialCameraPosition: _initialCameraPosition,
-            accessToken: dotenv.env['MAPBOX_ACCESS_TOKEN'],
-            myLocationEnabled: true,
+          // Mapbox Map added here and user location enabled
+          MapWidget(
+            key: const ValueKey("mapWidget"),
+            styleUri: MapboxStyles.MAPBOX_STREETS,
+            cameraOptions: _initialCameraPosition,
+            onMapCreated: (MapboxMap mapboxMap) {
+              // Enable user location
+              mapboxMap.location.updateSettings(LocationComponentSettings(
+                enabled: true,
+                pulsingEnabled: true,
+              ));
+            },
+            mapOptions: MapOptions(
+              contextMode: ContextMode.UNIQUE,
+              constrainMode: ConstrainMode.HEIGHT_ONLY,
+              viewportMode: ViewportMode.DEFAULT,
+              orientation: NorthOrientation.UPWARDS,
+              crossSourceCollisions: true,
+              pixelRatio: MediaQuery.of(context).devicePixelRatio,
+            ),
           ),
           Positioned(
             bottom: 0,
@@ -98,6 +122,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             Text(
                               'Where do you wanna go today?',
                               style: TextStyle(
+                                fontSize: 16,
                                 color: Colors.black,
                               ),
                             )

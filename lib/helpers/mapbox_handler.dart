@@ -1,7 +1,43 @@
-//import 'dart:convert';
-
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_cab/requests/mapbox_directions.dart';
 import 'package:flutter_cab/requests/mapbox_rev_geocoding.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:flutter_cab/requests/mapbox_search.dart';
+import 'package:latlong2/latlong.dart';
+//import 'package:mapbox_gl/mapbox_gl.dart';
+
+// Mapbox Search Query
+
+String getValidatedQueryFromQuery(String query) {
+  // Remove whitespaces
+  String validatedQuery = query.trim();
+  return validatedQuery;
+}
+
+Future<List> getParsedResponseForQuery(String value) async {
+  List parsedResponses = [];
+
+  String query = getValidatedQueryFromQuery(value);
+  // If empty query send blank response
+  if (query == '') return parsedResponses;
+
+  // Else search and then send response
+  //var response = json.decode(await getSearchResultsFromQueryUsingMapbox(query));
+  Map<String, dynamic> response =
+      await getSearchResultsFromQueryUsingMapbox(query);
+
+  List features = response['features'];
+  for (var feature in features) {
+    Map response = {
+      'name': feature['text'],
+      'address': feature['place_name'].split('${feature['text']}, ')[1],
+      'place': feature['place_name'],
+      'location': LatLng(feature['center'][1], feature['center'][0])
+    };
+    parsedResponses.add(response);
+  }
+  return parsedResponses;
+}
 
 // Mapbox Reverse Geocoding
 Future<Map> getParsedReverseGeocoding(LatLng latlng) async {
@@ -16,6 +52,22 @@ Future<Map> getParsedReverseGeocoding(LatLng latlng) async {
     };
     return revGeocode;
   } else {
-    return {}; // handle empty response
+    return {}; // empty response
   }
+}
+
+// Mapbox Directions API
+Future<Map> getDirectionsAPIResponse(
+    LatLng sourceLatLng, LatLng destinationLatLng) async {
+  final response =
+      await getCyclingRouteUsingMapbox(sourceLatLng, destinationLatLng);
+  debugPrint('routes response ${response}');
+  //if(response['routes'])
+  return response;
+}
+
+LatLng getCenterCoordinatesForPolyline(Map geometry) {
+  List coordinates = geometry['coordinates'];
+  int pos = (coordinates.length / 2).round();
+  return LatLng(coordinates[pos][1], coordinates[pos][0]);
 }

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cab/Components/review_ride_fa_button.dart';
 import 'package:flutter_cab/Components/endpoints_card.dart';
+import 'package:flutter_cab/Components/search_listview.dart';
+import 'package:flutter_cab/Components/review_ride_fa_button.dart';
 
 class PrepareRide extends StatefulWidget {
   const PrepareRide({super.key});
 
   @override
-  State<PrepareRide> createState() => _PrepareRideState();
+  State<PrepareRide> createState() => PrepareRideState();
 
-  //Declare a static function to reference setters from children
-  static _PrepareRideState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_PrepareRideState>();
+  // Declare a static function to reference setters from children
+  static PrepareRideState? of(BuildContext context) =>
+      context.findAncestorStateOfType<PrepareRideState>();
 }
 
-class _PrepareRideState extends State<PrepareRide> {
+class PrepareRideState extends State<PrepareRide> {
   bool isLoading = false;
   bool isEmptyResponse = true;
   bool hasResponded = false;
@@ -23,6 +24,7 @@ class _PrepareRideState extends State<PrepareRide> {
   String noResponse = 'No results found for the search';
 
   List responses = [];
+
   TextEditingController sourceController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
 
@@ -56,11 +58,11 @@ class _PrepareRideState extends State<PrepareRide> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back),
-        ),
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
         title: const Text(
           'Flutter Cab',
           style: TextStyle(
@@ -68,6 +70,10 @@ class _PrepareRideState extends State<PrepareRide> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        backgroundColor: Colors.amber,
+        actions: const [
+          CircleAvatar(backgroundImage: AssetImage('images/user_icon.png')),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -75,9 +81,18 @@ class _PrepareRideState extends State<PrepareRide> {
           child: Column(
             children: [
               endpointsCard(sourceController, destinationController),
-              // Linear progress indicator to show loading
-              // Show an appropriate messahe if no address has been entered, or no results are found
-              // Show a list view of results to select one from
+              isLoading
+                  ? const LinearProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
+                  : Container(),
+              isEmptyResponse
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Center(
+                          child: Text(hasResponded ? noResponse : noRequest)))
+                  : Container(),
+              searchListView(responses, isResponseForDestination,
+                  destinationController, sourceController),
             ],
           ),
         ),

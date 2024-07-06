@@ -1,6 +1,8 @@
 import 'dart:convert';
-import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:flutter_cab/main.dart';
+
+import 'package:latlong2/latlong.dart';
+
+import '../main.dart';
 
 LatLng getCurrentLatLngFromSharedPrefs() {
   return LatLng(sharedPreferences.getDouble('latitude')!,
@@ -12,13 +14,17 @@ String getCurrentAddressFromSharedPrefs() {
 }
 
 LatLng getTripLatLngFromSharedPrefs(String type) {
+  print(sharedPreferences.getString('source')!);
   List sourceLocationList =
-      json.decode(sharedPreferences.getString('source')!)['location'];
+      json.decode(sharedPreferences.getString('source')!)['location']
+          ['coordinates'];
   List destinationLocationList =
-      json.decode(sharedPreferences.getString('destination')!)['location'];
-  LatLng source = LatLng(sourceLocationList[0], sourceLocationList[1]);
+      json.decode(sharedPreferences.getString('destination')!)['location']
+          ['coordinates'];
+  print(sourceLocationList);
+  LatLng source = LatLng(sourceLocationList[1], sourceLocationList[0]);
   LatLng destination =
-      LatLng(destinationLocationList[0], destinationLocationList[1]);
+      LatLng(destinationLocationList[1], destinationLocationList[0]);
 
   if (type == 'source') {
     return source;

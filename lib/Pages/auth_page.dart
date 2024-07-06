@@ -37,7 +37,7 @@ class AuthPage extends StatelessWidget {
     Navigator.of(context).pop(); //close the dialog
     Navigator.pushReplacement(
       context, 
-      MaterialPageRoute(builder: (context) => UserHomePage()),
+      MaterialPageRoute(builder: (context) => const UserHomePage()),
       );
    });
   }
@@ -82,7 +82,7 @@ class AuthPage extends StatelessWidget {
                     }
                   } 
                   else if (isDriver == false) {
-                    return UserHomePage();
+                    return const UserHomePage();
                   } 
                   else {
                     return const Center(

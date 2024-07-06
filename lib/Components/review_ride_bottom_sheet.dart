@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Pages/turn_by_turn.dart';
+import 'package:flutter_cab/helpers/shared_prefs.dart';
 
 Widget reviewRideBottomSheet(
-    BuildContext context, String distance, String dropOffTime) {
+    BuildContext context, String distance, String dropOffTime, String rate) {
   // Get source and destination addresses from sharedPreferences
+  String sourceAddress = getSourceAndDestinationPlaceText('source');
+  String destinationAddress = getSourceAndDestinationPlaceText('destination');
 
   return Positioned(
       bottom: 0,
@@ -12,14 +15,14 @@ Widget reviewRideBottomSheet(
           child: Card(
               clipBehavior: Clip.antiAlias,
               child: Padding(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Source Address ➡ Destination Address',
-                          style: TextStyle(
-                            color: Colors.grey,
+                      Text('$sourceAddress ➡ $destinationAddress',
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 130, 128, 128),
                           )),
                       Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -36,9 +39,9 @@ Widget reviewRideBottomSheet(
                             ),
                             subtitle:
                                 Text('$distance km, $dropOffTime drop off'),
-                            trailing: const Text(
-                              '\$384.22',
-                              style: TextStyle(
+                            trailing: Text(
+                              '₹$rate',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                           )),
@@ -49,9 +52,9 @@ Widget reviewRideBottomSheet(
                                   builder: (_) => const TurnByTurn())),
                           style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(20)),
-                          child: Row(
+                          child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text('Start your premier ride now'),
                               ]))
                     ]),

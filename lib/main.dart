@@ -4,6 +4,7 @@ import 'firebase_options.dart';
 import 'app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 late SharedPreferences sharedPreferences;
 void main() async {
@@ -13,5 +14,6 @@ void main() async {
   );
   sharedPreferences = await SharedPreferences.getInstance();
   await dotenv.load(fileName: "assets/config/.env");
+  MapboxOptions.setAccessToken(dotenv.env['MAPBOX_ACCESS_TOKEN']!);
   runApp(const MyApp());
 }

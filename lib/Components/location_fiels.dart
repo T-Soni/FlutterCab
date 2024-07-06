@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cab/Pages/prepare_ride.dart';
 import 'package:google_fonts/google_fonts.dart';
-//import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:latlong2/latlong.dart';
 
-//import '../helpers/shared_prefs.dart';
+import '../helpers/mapbox_handler.dart';
+import '../helpers/shared_prefs.dart';
+import '../main.dart';
 
 class LocationField extends StatefulWidget {
   final bool isDestination;
@@ -27,25 +31,42 @@ class _LocationFieldState extends State<LocationField> {
 
   _onChangeHandler(value) {
     // Set isLoading = true in parent
+    PrepareRide.of(context)?.isLoading = true;
 
     // Make sure that requests are not made
     // until 1 second after the typing stops
+    if (searchOnStoppedTyping != null) {
+      setState(() => searchOnStoppedTyping?.cancel());
+    }
+    setState(() => searchOnStoppedTyping =
+        Timer(const Duration(seconds: 1), () => _searchHandler(value)));
   }
 
-  /*_searchHandler(String value) async {
+  _searchHandler(String value) async {
     // Get response using Mapbox Search API
+    List response = await getParsedResponseForQuery(value);
 
     // Set responses and isDestination in parent
+
+    PrepareRide.of(context)?.responsesState = response;
+    PrepareRide.of(context)?.isResponseForDestinationState =
+        widget.isDestination;
     setState(() => query = value);
-  }*/
+  }
 
   _useCurrentLocationButtonHandler() async {
     if (!widget.isDestination) {
-      //LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
+      LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
 
-      // Get the response of reverse geocoding and do 2 things:
+      // Get the response of reverse geocoding and...
       // 1. Store encoded response in shared preferences
       // 2. Set the text editing controller to the address
+      var response = await getParsedReverseGeocoding(currentLocation);
+      print('source location: ${response['location']}');
+      sharedPreferences.setString('source', json.encode(response));
+      String place = response['place'];
+      print(response['location']);
+      widget.textEditingController.text = place;
     }
   }
 
@@ -61,7 +82,7 @@ class _LocationFieldState extends State<LocationField> {
           placeholder: placeholderText,
           placeholderStyle: GoogleFonts.rubik(color: Colors.indigo[300]),
           decoration: BoxDecoration(
-            color: Colors.indigo[100],
+            color: Colors.grey[100],
             borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           onChanged: _onChangeHandler,
