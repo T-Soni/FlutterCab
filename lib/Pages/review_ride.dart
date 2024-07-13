@@ -1,13 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cab/helpers/commons.dart';
-import 'package:latlong2/latlong.dart';
-import '../helpers/mapbox_handler.dart';
-import '../Components/review_ride_bottom_sheet.dart';
 import 'package:flutter_cab/helpers/shared_prefs.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+
+import '../Components/review_ride_bottom_sheet.dart';
+import '../helpers/mapbox_handler.dart';
 
 class ReviewRide extends StatefulWidget {
   final Map modifiedResponse;
@@ -139,13 +138,20 @@ class _ReviewRideState extends State<ReviewRide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.amber,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text('Review Ride'),
+        title: const Text(
+          'Review Ride',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Stack(

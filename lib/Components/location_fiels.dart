@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Pages/prepare_ride.dart';
@@ -28,13 +30,16 @@ class LocationField extends StatefulWidget {
 class _LocationFieldState extends State<LocationField> {
   Timer? searchOnStoppedTyping;
   String query = '';
+  bool isFavorite = false;
+  var favoriteDestinationId;
+
+  String destination = '';
 
   _onChangeHandler(value) {
     // Set isLoading = true in parent
     PrepareRide.of(context)?.isLoading = true;
 
-    // Make sure that requests are not made
-    // until 1 second after the typing stops
+    // Make sure that requests are not made until 1 second after the typing stops
     if (searchOnStoppedTyping != null) {
       setState(() => searchOnStoppedTyping?.cancel());
     }
@@ -52,6 +57,7 @@ class _LocationFieldState extends State<LocationField> {
     PrepareRide.of(context)?.isResponseForDestinationState =
         widget.isDestination;
     setState(() => query = value);
+    //PrepareRide.of(context)?.isFavoriteDestination = isFavorite;
   }
 
   _useCurrentLocationButtonHandler() async {
@@ -70,10 +76,39 @@ class _LocationFieldState extends State<LocationField> {
     }
   }
 
+  _toggleFavorite() async {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+    if (isFavorite) {
+      var docRef = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('favorites')
+          .add({'destination': widget.textEditingController.text});
+      favoriteDestinationId = docRef.id;
+    } else {
+      if (favoriteDestinationId != null) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('favorites')
+            .doc(favoriteDestinationId)
+            .delete();
+        favoriteDestinationId = null;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String placeholderText = widget.isDestination ? 'Where to?' : 'Where from?';
-    IconData? iconData = !widget.isDestination ? Icons.my_location : null;
+    IconData iconData = !widget.isDestination
+        ? Icons.my_location
+        : isFavorite
+            ? Icons.favorite
+            : Icons.favorite_border;
+    Color iconColor = isFavorite ? Colors.red : Colors.black;
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10),
       child: CupertinoTextField(
@@ -82,15 +117,21 @@ class _LocationFieldState extends State<LocationField> {
           placeholder: placeholderText,
           placeholderStyle: GoogleFonts.rubik(color: Colors.indigo[300]),
           decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.white,
+              width: 1.5,
+            ),
             color: Colors.grey[100],
             borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           onChanged: _onChangeHandler,
           suffix: IconButton(
-              onPressed: () => _useCurrentLocationButtonHandler(),
+              onPressed: () => widget.isDestination
+                  ? _toggleFavorite()
+                  : _useCurrentLocationButtonHandler(),
               padding: const EdgeInsets.all(10),
               constraints: const BoxConstraints(),
-              icon: Icon(iconData, size: 16))),
+              icon: Icon(iconData, size: 20, color: iconColor))),
     );
   }
 }

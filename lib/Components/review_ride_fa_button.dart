@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+
+import '../Pages/review_ride.dart';
 import '../helpers/mapbox_handler.dart';
 import '../helpers/shared_prefs.dart';
-import '../Pages/review_ride.dart';
 
 Widget reviewRideFaButton(BuildContext context) {
   return FloatingActionButton.extended(
+      backgroundColor: Colors.amberAccent,
       icon: const Icon(Icons.local_taxi),
       onPressed: () async {
         LatLng sourceLatLng = getTripLatLngFromSharedPrefs('source');

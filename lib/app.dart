@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      //home: const AuthPage(),
       home: const Splash(),
     );
   }
