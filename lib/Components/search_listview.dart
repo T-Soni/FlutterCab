@@ -32,7 +32,10 @@ Widget searchListView(
             },
             leading: const SizedBox(
               height: double.infinity,
-              child: CircleAvatar(child: Icon(Icons.map)),
+              child: CircleAvatar(
+                backgroundColor: Colors.amberAccent,
+                child: Icon(Icons.map),
+              ),
             ),
             title: Text(responses[index]['name'],
                 style: const TextStyle(fontWeight: FontWeight.bold)),

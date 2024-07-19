@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Components/endpoints_card.dart';
-import 'package:flutter_cab/Components/search_listview.dart';
 import 'package:flutter_cab/Components/review_ride_fa_button.dart';
+import 'package:flutter_cab/Components/search_listview.dart';
+import 'package:flutter_cab/Pages/favourite_destinations.dart';
 
 class PrepareRide extends StatefulWidget {
   const PrepareRide({super.key});
@@ -55,6 +58,29 @@ class PrepareRideState extends State<PrepareRide> {
     });
   }
 
+  bool isFirstTime = false;
+  List<DocumentSnapshot> favoriteDestinationsList = [];
+
+  getFavoriteDestinations() async {
+    if (!isFirstTime) {
+      QuerySnapshot snap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('favorites')
+          .get();
+      isFirstTime = true;
+      setState(() {
+        favoriteDestinationsList.addAll(snap.docs);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isFirstTime = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +115,48 @@ class PrepareRideState extends State<PrepareRide> {
                   ? Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: Center(
-                          child: Text(hasResponded ? noResponse : noRequest)))
+                          child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                            child: Text(
+                              hasResponded ? noResponse : noRequest,
+                              style: const TextStyle(fontSize: 13),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          const Divider(),
+                          ListTile(
+                            onTap: () {
+                              getFavoriteDestinations();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => FavoriteDestinationsList(
+                                            favoriteDestinationsList:
+                                                favoriteDestinationsList,
+                                            isResponseForDestination:
+                                                isResponseForDestination,
+                                            destinationController:
+                                                destinationController,
+                                            sourceController: sourceController,
+                                          )));
+                            },
+                            leading: const SizedBox(
+                              height: double.infinity,
+                              child: CircleAvatar(
+                                  backgroundColor: Colors.amberAccent,
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: Colors.black,
+                                  )),
+                            ),
+                            title: const Text('Favourite Destinations',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
+                          //const Divider(),
+                        ],
+                      )))
                   : Container(),
               searchListView(responses, isResponseForDestination,
                   destinationController, sourceController),

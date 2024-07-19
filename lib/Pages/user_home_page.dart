@@ -17,6 +17,8 @@ class _UserHomePageState extends State<UserHomePage> {
   late String currentAddress;
   late CameraOptions _initialCameraPosition;
 
+  int _currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -136,6 +138,30 @@ class _UserHomePageState extends State<UserHomePage> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        backgroundColor: Colors.grey[50],
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.local_activity),
+            label: 'Activity',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
+          )
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }
