@@ -33,7 +33,7 @@ Widget reviewRideBottomSheet(
                                 height: 50,
                                 width: 50),
                             title: const Text(
-                              'Premier',
+                              'Trip',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
@@ -55,7 +55,7 @@ Widget reviewRideBottomSheet(
                           child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Start your premier ride now'),
+                                Text('Start your ride now'),
                               ]))
                     ]),
               ))));

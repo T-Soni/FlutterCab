@@ -31,6 +31,6 @@ class _TurnByTurnState extends State<TurnByTurn> {
 
   @override
   Widget build(BuildContext context) {
-    return const RateRide();
+    return RateRide();
   }
 }

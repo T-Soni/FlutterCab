@@ -3,7 +3,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { 
+        maven {
             url 'https://api.mapbox.com/downloads/v2/releases/maven'
             credentials {
                 // Do not change the username below.
@@ -13,7 +13,7 @@ buildscript {
                 password = MAPBOX_DOWNLOADS_TOKEN
             }
             authentication {
-                 basic(BasicAuthentication) 
+                basic(BasicAuthentication)
             }
         }
     }
@@ -29,7 +29,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { 
+        maven {
             url 'https://api.mapbox.com/downloads/v2/releases/maven'
             credentials {
                 // Do not change the username below.
@@ -40,6 +40,13 @@ allprojects {
             }
             authentication {
                 basic(BasicAuthentication)
+            }
+        }
+    }
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.mapbox.common' && details.requested.name == 'common') {
+                details.useTarget 'com.mapbox.common:common:24.4.0'
             }
         }
     }

@@ -68,7 +68,10 @@ flutter {
 }
 
 dependencies {
-    
+    implementation ('com.mapbox.common:common:24.4.0') {
+        exclude group: 'com.mapbox.common', module: 'okhttp'
+    }
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     
 }
