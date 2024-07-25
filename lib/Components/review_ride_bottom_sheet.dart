@@ -51,11 +51,18 @@ Widget reviewRideBottomSheet(
                               MaterialPageRoute(
                                   builder: (_) => const TurnByTurn())),
                           style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amberAccent,
                               padding: const EdgeInsets.all(20)),
                           child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Start your ride now'),
+                                Text(
+                                  'Start your ride now',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ]))
                     ]),
               ))));

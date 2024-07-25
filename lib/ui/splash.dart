@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Pages/auth_page.dart';
 import 'package:flutter_cab/main.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+
 import '../helpers/mapbox_handler.dart';
-import 'package:flutter/cupertino.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});

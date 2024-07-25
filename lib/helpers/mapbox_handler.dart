@@ -22,7 +22,6 @@ Future<List> getParsedResponseForQuery(String value) async {
   if (query == '') return parsedResponses;
 
   // Else search and then send response
-  //var response = json.decode(await getSearchResultsFromQueryUsingMapbox(query));
   Map<String, dynamic> response =
       await getSearchResultsFromQueryUsingMapbox(query);
 

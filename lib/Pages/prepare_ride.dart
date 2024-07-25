@@ -83,6 +83,7 @@ class PrepareRideState extends State<PrepareRide> {
 
   @override
   Widget build(BuildContext context) {
+    getFavoriteDestinations();
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -98,7 +99,11 @@ class PrepareRideState extends State<PrepareRide> {
         ),
         backgroundColor: Colors.amber,
         actions: const [
-          CircleAvatar(backgroundImage: AssetImage('images/user_icon.png')),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CircleAvatar(
+                backgroundImage: AssetImage('images/user_icon.png')),
+          ),
         ],
       ),
       body: SafeArea(
@@ -127,7 +132,7 @@ class PrepareRideState extends State<PrepareRide> {
                           const SizedBox(height: 8),
                           const Divider(),
                           ListTile(
-                            onTap: () {
+                            onTap: () async {
                               getFavoriteDestinations();
                               Navigator.push(
                                   context,

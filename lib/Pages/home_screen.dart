@@ -137,30 +137,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-        // ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   type: BottomNavigationBarType.fixed,
-        //   currentIndex: _currentIndex,
-        //   backgroundColor: Colors.grey[50],
-        //   items: const [
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.home),
-        //       label: 'Home',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.local_activity),
-        //       label: 'Activity',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.person),
-        //       label: 'Account',
-        //     )
-        //   ],
-        //   onTap: (index) {
-        //     setState(() {
-        //       _currentIndex = index;
-        //     });
-        //   },
       ),
     );
   }

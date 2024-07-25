@@ -34,6 +34,7 @@ class _ReviewRideState extends State<ReviewRide> {
 
   @override
   void initState() {
+    super.initState();
     // initialise distance, dropOffTime, geometry
     _initialiseDirectionsResponse();
 
@@ -52,7 +53,6 @@ class _ReviewRideState extends State<ReviewRide> {
           center: Point(
               coordinates: Position(location.longitude, location.latitude))));
     }
-    super.initState();
   }
 
   _initialiseDirectionsResponse() {

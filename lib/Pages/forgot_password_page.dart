@@ -20,24 +20,25 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   Future passwordReset() async {
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text.trim());
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
       showDialog(
-        context: context, 
+        context: context,
         builder: (context) {
           return const AlertDialog(
             content: Text('Password reset link set! Check your email'),
           );
         },
-       );
-    }on FirebaseAuthException catch (e) {
+      );
+    } on FirebaseAuthException catch (e) {
       showDialog(
-        context: context, 
+        context: context,
         builder: (context) {
           return AlertDialog(
             content: Text(e.message.toString()),
           );
         },
-        );
+      );
     }
   }
 
@@ -51,26 +52,25 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text('Enter your email and we will send you a password reset link',
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Text(
+                'Enter your email and we will send you a password reset link',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                fontSize: 16,
-                            ),
-                            ),
+                  fontSize: 16,
+                ),
               ),
+            ),
             const SizedBox(height: 10),
             Padding(
-              padding:const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: MyTextField(
-                      controller: _emailController,
-                      hintText: 'Email',
-                      obscureText: false,
-                  ),
+                controller: _emailController,
+                hintText: 'Email',
+                obscureText: false,
+              ),
             ),
             const SizedBox(height: 10),
             MaterialButton(
@@ -81,12 +81,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  ),),
+                ),
+              ),
             ),
-            ]
-          ),
-          ),
-          ),
+          ]),
+        ),
+      ),
     );
   }
 }

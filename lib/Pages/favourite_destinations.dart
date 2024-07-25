@@ -48,7 +48,7 @@ class FavoriteDestinationsListState extends State<FavoriteDestinationsList> {
                           widget.favoriteDestinationsList[index]['destination'];
                       //if (widget.isResponseForDestination) {
                       widget.destinationController.text = text;
-                      sharedPreferences.setString('destinatioon', text);
+                      sharedPreferences.setString('destination', text);
                       //} else {
                       //widget.sourceController.text = text;
                       //sharedPreferences.setString('source', text);

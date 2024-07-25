@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_cab/Pages/auth_page.dart';
 import 'package:flutter_cab/ui/splash.dart';
 
 class MyApp extends StatelessWidget {

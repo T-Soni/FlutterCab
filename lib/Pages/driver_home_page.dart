@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DriverHomePage extends StatelessWidget {
-   DriverHomePage({super.key});
+  DriverHomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -16,11 +16,13 @@ class DriverHomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Flutter Cab',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),),
+        title: const Text(
+          'Flutter Cab',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Colors.amber,
         actions: [
           IconButton(
@@ -29,14 +31,11 @@ class DriverHomePage extends StatelessWidget {
           )
         ],
       ),
-      body: 
-      
-      Center(
-        child: Text(
-          "Driver logged in as: ${user.email!}",
-          style: const TextStyle(fontSize: 20),
-          )
-          ),
+      body: Center(
+          child: Text(
+        "Driver logged in as: ${user.email!}",
+        style: const TextStyle(fontSize: 20),
+      )),
     );
   }
 }
