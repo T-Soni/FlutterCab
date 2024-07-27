@@ -51,6 +51,13 @@ class _LocationFieldState extends State<LocationField> {
     // Get response using Mapbox Search API
     List response = await getParsedResponseForQuery(value);
 
+    //store the source and destination in shared preferences
+    if (widget.isDestination) {
+      sharedPreferences.setString('destination', json.encode(response));
+    } else {
+      sharedPreferences.setString('source', json.encode(response));
+    }
+
     // Set responses and isDestination in parent
 
     PrepareRide.of(context)?.responsesState = response;
@@ -85,7 +92,8 @@ class _LocationFieldState extends State<LocationField> {
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('favorites')
-          .add({'destination': widget.textEditingController.text});
+          .add({'destination': sharedPreferences.getString('destination')});
+      // .add({'destination': widget.textEditingController.text});
       favoriteDestinationId = docRef.id;
     } else {
       if (favoriteDestinationId != null) {

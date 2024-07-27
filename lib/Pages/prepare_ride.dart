@@ -90,21 +90,19 @@ class PrepareRideState extends State<PrepareRide> {
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back)),
-        title: const Text(
-          'Flutter Cab',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+        title: const Center(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 25, 0),
+            child: Text(
+              'Plan Your Trip',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         backgroundColor: Colors.amber,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircleAvatar(
-                backgroundImage: AssetImage('images/user_icon.png')),
-          ),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

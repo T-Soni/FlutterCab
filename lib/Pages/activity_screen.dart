@@ -65,6 +65,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
           ),
           Expanded(
             child: ListView.builder(
+              reverse: true,
               itemCount: tripHistoryList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Column(
@@ -86,26 +87,45 @@ class _ActivityScreenState extends State<ActivityScreen> {
                           ),
                         ),
                         Expanded(
-                          child: Text(
-                            tripHistoryList[index]['source'],
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 16),
-                            maxLines: 3,
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(2.0),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            tripHistoryList[index]['destination'],
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 16),
-                            maxLines: 3,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      tripHistoryList[index]['source'],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 16),
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.all(2.0),
+                                    child: Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      tripHistoryList[index]['destination'],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 16),
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  tripHistoryList[index]['tripTime'],
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontSize: 12),
+                                  maxLines: 3,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         Padding(

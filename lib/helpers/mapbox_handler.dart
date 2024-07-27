@@ -60,7 +60,7 @@ Future<Map> getDirectionsAPIResponse(
     LatLng sourceLatLng, LatLng destinationLatLng) async {
   final response =
       await getCyclingRouteUsingMapbox(sourceLatLng, destinationLatLng);
-  debugPrint('routes response ${response}');
+  debugPrint('routes response $response');
   //if(response['routes'])
   return response;
 }

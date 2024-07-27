@@ -15,6 +15,7 @@ class RateRide extends StatelessWidget {
       json.decode(sharedPreferences.getString('source')!)['place'];
   final String destinationAddress =
       json.decode(sharedPreferences.getString('destination')!)['place'];
+  final String tripTime = sharedPreferences.getString('tripTime')!;
 
   _saveTripHistory(var rating) async {
     await FirebaseFirestore.instance
@@ -24,7 +25,8 @@ class RateRide extends StatelessWidget {
         .add({
       'destination': destinationAddress,
       'source': sourceAddress,
-      'rating': rating
+      'rating': rating,
+      'tripTime': tripTime,
     });
   }
 
@@ -34,7 +36,7 @@ class RateRide extends StatelessWidget {
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text('Rate your ride', style: Theme.of(context).textTheme.titleLarge),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         child: Center(
           child: RatingBar.builder(
             initialRating: 0,
@@ -48,16 +50,32 @@ class RateRide extends StatelessWidget {
               color: Colors.amber,
             ),
             onRatingUpdate: (rating) {
-              print(rating);
+              //print(rating);
               _saveTripHistory(rating);
             },
           ),
         ),
       ),
+      const SizedBox(
+        height: 10,
+      ),
       ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.amberAccent,
+            padding: const EdgeInsets.all(16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
           onPressed: () => Navigator.push(
               context, MaterialPageRoute(builder: (_) => const UserHomePage())),
-          child: const Text('Start another ride'))
+          child: const Text(
+            'Start another ride',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+            ),
+          ))
     ]));
   }
 }

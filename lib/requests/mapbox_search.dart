@@ -17,7 +17,9 @@ Dio _dio = Dio();
 
 Future getSearchResultsFromQueryUsingMapbox(String query) async {
   String url =
-      '$baseUrl/$query.json?country=$country&limit=$searchResultsLimit&proximity=$proximity&types=$searchType&access_token=$accessToken';
+      '$baseUrl/$query.json?country=$country&limit=$searchResultsLimit&proximity=$proximity&access_token=$accessToken';
+  // String url =
+  //     '$baseUrl/$query.json?country=$country&limit=$searchResultsLimit&proximity=$proximity&types=$searchType&access_token=$accessToken';
   url = Uri.parse(url).toString();
   print(url);
   try {

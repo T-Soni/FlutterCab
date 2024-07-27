@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/main.dart';
@@ -44,15 +46,25 @@ class FavoriteDestinationsListState extends State<FavoriteDestinationsList> {
                 children: [
                   ListTile(
                     onTap: () {
-                      String text =
-                          widget.favoriteDestinationsList[index]['destination'];
-                      //if (widget.isResponseForDestination) {
-                      widget.destinationController.text = text;
-                      sharedPreferences.setString('destination', text);
-                      //} else {
-                      //widget.sourceController.text = text;
-                      //sharedPreferences.setString('source', text);
-                      //}
+                      print(widget.favoriteDestinationsList[index]
+                          ['destination']!);
+
+                      sharedPreferences.setString(
+                          'destination',
+                          widget.favoriteDestinationsList[index]
+                              ['destination']!);
+                      print(
+                          'favDestinationstored...${sharedPreferences.getString('destination')}');
+                      String place = json.decode(
+                          widget.favoriteDestinationsList[index]
+                              ['destination']!)['place'];
+                      ////if (widget.isResponseForDestination) {
+                      widget.destinationController.text = place;
+
+                      ////} else {
+                      ////widget.sourceController.text = place;
+                      ////sharedPreferences.setString('source', place);
+                      ////}
                       Navigator.pop(context);
                     },
                     leading: const SizedBox(
@@ -66,7 +78,7 @@ class FavoriteDestinationsListState extends State<FavoriteDestinationsList> {
                       ),
                     ),
                     title: Text(
-                      '${widget.favoriteDestinationsList[index]['destination']}',
+                      '${json.decode(widget.favoriteDestinationsList[index]['destination']!)['place']}',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     //subtitle: Text(' '),

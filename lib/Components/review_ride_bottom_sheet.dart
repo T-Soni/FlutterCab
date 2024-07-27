@@ -52,7 +52,7 @@ Widget reviewRideBottomSheet(
                                   builder: (_) => const TurnByTurn())),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.amberAccent,
-                              padding: const EdgeInsets.all(20)),
+                              padding: const EdgeInsets.all(15)),
                           child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

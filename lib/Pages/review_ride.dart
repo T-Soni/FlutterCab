@@ -145,11 +145,16 @@ class _ReviewRideState extends State<ReviewRide> {
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text(
-          'Review Ride',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+        title: const Center(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 25, 0),
+            child: Text(
+              'Ride Ready?',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ),

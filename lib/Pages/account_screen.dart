@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -8,6 +9,9 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  late Future<String> userEmail;
+  final user = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,16 +27,25 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         backgroundColor: Colors.amber,
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Text(
-          'This is your profile',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 18,
-          ),
-        ),
-      ),
+      body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              Text(
+                user.email!,
+                style: const TextStyle(fontSize: 20),
+              ),
+              const Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CircleAvatar(
+                        backgroundImage: AssetImage('images/user_icon.png')),
+                  ],
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

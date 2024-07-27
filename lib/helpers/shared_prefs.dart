@@ -18,6 +18,8 @@ LatLng getTripLatLngFromSharedPrefs(String type) {
   List sourceLocationList =
       json.decode(sharedPreferences.getString('source')!)['location']
           ['coordinates'];
+  print(
+      'destination stored in shared pref...${sharedPreferences.getString('destination')!}');
   List destinationLocationList =
       json.decode(sharedPreferences.getString('destination')!)['location']
           ['coordinates'];

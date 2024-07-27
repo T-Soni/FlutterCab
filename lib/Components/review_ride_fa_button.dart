@@ -12,12 +12,12 @@ Widget reviewRideFaButton(BuildContext context) {
       onPressed: () async {
         LatLng sourceLatLng = getTripLatLngFromSharedPrefs('source');
         LatLng destinationLatLng = getTripLatLngFromSharedPrefs('destination');
-        print('sourceLatLng: ${sourceLatLng}');
-        print('destinationLatLng: ${destinationLatLng}');
+        print('sourceLatLng: $sourceLatLng');
+        print('destinationLatLng: $destinationLatLng');
 
         Map modifiedResponse =
             await getDirectionsAPIResponse(sourceLatLng, destinationLatLng);
-        print('response from directions api: ${modifiedResponse}');
+        print('response from directions api: $modifiedResponse');
         if (context.mounted) {
           Navigator.push(
               context,
