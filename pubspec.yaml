@@ -53,6 +53,7 @@ dependencies:
   mapbox_maps_flutter: ^2.0.0
   latlong2: ^0.9.1
   firebase_database: ^10.5.7
+  flutter_svg: ^2.0.10+1
   
 
 dev_dependencies:
@@ -81,20 +82,9 @@ flutter:
   assets:
     - lib/Images/
     - assets/config/
-    - images/car_android.png
-    - images/car_ios.png
-    - images/desticon.png
-    - images/desticon1.png
-    - images/logo.png
-    - images/logo1.png
-    - images/pickicon.png
-    - images/posimarker.png
-    - images/redmarker.png
-    - images/taxi.png
-    - images/user_icon.png
-    - images/circle.png
-    - images/square.png
-
+    - images/
+    - assets/icons/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

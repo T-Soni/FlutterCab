@@ -84,8 +84,6 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //const SizedBox(height: 30),
-                  //logo
                   const Icon(
                     Icons.directions_car,
                     color: Colors.amber,

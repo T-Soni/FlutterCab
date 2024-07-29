@@ -65,7 +65,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              reverse: true,
+              //reverse: true,
               itemCount: tripHistoryList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Column(

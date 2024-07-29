@@ -17,14 +17,14 @@ class SquareTile extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.amber),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
           color: Colors.white,
         ),
         child: Padding(
           padding: const EdgeInsets.all(1.0),
           child: Image.asset(
             imagePath,
-            height: 40,
+            height: 30,
           ),
         ),
       ),

@@ -4,5 +4,6 @@
     "java.configuration.updateBuildConfiguration": "interactive",
     "cSpell.words": [
         "firestore"
-    ]
+    ],
+    "cmake.sourceDirectory": "/home/tanushree/App Projects/flutter_cab/Navigation/example/windows/runner"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cab/Pages/payment.dart';
 import 'package:flutter_cab/Pages/turn_by_turn.dart';
 import 'package:flutter_cab/helpers/shared_prefs.dart';
 
@@ -44,6 +45,32 @@ Widget reviewRideBottomSheet(
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
+                          )),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: ListTile(
+                            tileColor: Colors.grey[200],
+                            // leading: const Image(
+                            //     image: AssetImage('images/car_android.png'),
+                            //     height: 50,
+                            //     width: 50),
+                            leading: const Icon(
+                              Icons.currency_rupee,
+                              color: Colors.green,
+                            ),
+                            title: const Text(
+                              'Cash',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            subtitle: const Text('choose payment options'),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PaymentScreen())),
                           )),
                       ElevatedButton(
                           onPressed: () => Navigator.push(
