@@ -178,7 +178,8 @@ class _ReviewRideState extends State<ReviewRide> {
                 ),
               ),
             ),
-            reviewRideBottomSheet(context, distance, dropOffTime, rate),
+            ReviewRideBottomSheet(
+                distance: distance, dropOffTime: dropOffTime, rate: rate),
           ],
         ),
       ),
