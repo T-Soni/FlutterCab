@@ -30,15 +30,10 @@ class AuthPage extends StatelessWidget {
               )),
         );
       },
-    );
-
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.of(context).pop(); //close the dialog
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const UserHomePage()),
-      );
-    });
+    ).then((_) => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginOrRegisterPage()),
+        ));
   }
 
   @override
@@ -68,11 +63,9 @@ class AuthPage extends StatelessWidget {
                     if (snapshot.data!['role'] == 'driver') {
                       return DriverHomePage();
                     } else {
-                      // show the popup and navigate after 5s
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        _showPopupAndNavigate(context);
-                      });
-                      return Container();
+                      // show the popup and navigate
+                      _showPopupAndNavigate(context);
+                      return const LoginOrRegisterPage();
                     }
                   } else if (isDriver == false) {
                     return const UserHomePage();
