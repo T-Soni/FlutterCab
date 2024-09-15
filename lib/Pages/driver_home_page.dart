@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cab/Pages/active_requests.dart';
 import 'package:flutter_cab/helpers/shared_prefs.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
@@ -39,6 +40,60 @@ class _DriverHomePageState extends State<DriverHomePage> {
     FirebaseAuth.instance.signOut();
   }
 
+  void ConfirmLogout() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              elevation: 10,
+              shadowColor: Colors.grey.shade700,
+              backgroundColor: Colors.grey.shade200,
+              title: const Center(child: Text('Leaving Already?')),
+              content: const Text(
+                "Your journey doesn't end here. We'll be waiting for your next ride. Sign out now?",
+                style: TextStyle(fontSize: 16),
+              ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.grey.shade100)),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'No',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: TextButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.grey.shade100)),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                          signUserOut();
+                        },
+                        child: const Text(
+                          'Yes',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +110,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
         backgroundColor: Colors.amber,
         actions: [
           IconButton(
-            onPressed: signUserOut,
+            onPressed: ConfirmLogout,
             icon: const Icon(Icons.logout),
           )
         ],
@@ -101,33 +156,33 @@ class _DriverHomePageState extends State<DriverHomePage> {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),
-                      const Text('You are currently here:'),
+                      const Text(
+                        'You are currently here:',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       Text(
                         currentAddress,
                         style: const TextStyle(color: Colors.indigo),
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {},
-                        // onPressed: () => Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) => const PrepareRide())),
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(20),
-                            backgroundColor: Colors.amberAccent),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
+                      Center(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const ActiveRidesPage()));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(20),
+                                backgroundColor: Colors.amberAccent),
+                            child: Text(
                               'Check drive requests near you',
                               style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            )
-                          ],
-                        ),
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )),
                       ),
                     ],
                   ),

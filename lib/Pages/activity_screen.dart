@@ -24,6 +24,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('Trip History')
+        .orderBy('tripTime', descending: true)
         .get();
     setState(() {
       tripHistoryList = snap.docs;
@@ -116,29 +117,53 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  tripHistoryList[index]['tripTime'],
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontSize: 12),
-                                  maxLines: 3,
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            8, 8, 8, 0),
+                                        child: Text(
+                                          tripHistoryList[index]['tripTime']
+                                              .split(' ')[0],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(fontSize: 12),
+                                          maxLines: 3,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(0),
+                                        child: Text(
+                                          tripHistoryList[index]['tripTime']
+                                              .split(' ')[1],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(fontSize: 12),
+                                          maxLines: 3,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 6, 0),
+                                    child: RatingBarIndicator(
+                                      rating: tripHistoryList[index]['rating'],
+                                      itemBuilder: (context, index) =>
+                                          const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      itemCount: 5,
+                                      itemSize: 20.0,
+                                      direction: Axis.horizontal,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
-                          child: RatingBarIndicator(
-                            rating: tripHistoryList[index]['rating'],
-                            itemBuilder: (context, index) => const Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            itemCount: 5,
-                            itemSize: 20.0,
-                            direction: Axis.vertical,
                           ),
                         ),
                       ],

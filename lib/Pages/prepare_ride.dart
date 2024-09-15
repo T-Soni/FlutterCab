@@ -157,7 +157,6 @@ class PrepareRideState extends State<PrepareRide> {
                             title: const Text('Favourite Destinations',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
-                          //const Divider(),
                         ],
                       )))
                   : Container(),

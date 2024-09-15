@@ -72,13 +72,13 @@ class _LocationFieldState extends State<LocationField> {
       LatLng currentLocation = getCurrentLatLngFromSharedPrefs();
 
       // Get the response of reverse geocoding and...
-      // 1. Store encoded response in shared preferences
-      // 2. Set the text editing controller to the address
       var response = await getParsedReverseGeocoding(currentLocation);
       print('source location: ${response['location']}');
+      // Stores the encoded response in shared preferences
       sharedPreferences.setString('source', json.encode(response));
       String place = response['place'];
       print(response['location']);
+      // Set the text editing controller to the address
       widget.textEditingController.text = place;
     }
   }
@@ -93,7 +93,6 @@ class _LocationFieldState extends State<LocationField> {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('favorites')
           .add({'destination': sharedPreferences.getString('destination')});
-      // .add({'destination': widget.textEditingController.text});
       favoriteDestinationId = docRef.id;
     } else {
       if (favoriteDestinationId != null) {

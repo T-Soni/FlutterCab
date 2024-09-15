@@ -15,7 +15,11 @@ class RateRide extends StatelessWidget {
       json.decode(sharedPreferences.getString('source')!)['place'];
   final String destinationAddress =
       json.decode(sharedPreferences.getString('destination')!)['place'];
-  final String tripTime = sharedPreferences.getString('tripTime')!;
+  final DateTime pickUpTime =
+      DateTime.parse(sharedPreferences.getString('pickUpTime')!);
+  final DateTime dropOffTime =
+      DateTime.parse(sharedPreferences.getString('dropOffTime')!);
+  // final String tripTime = sharedPreferences.getString('tripTime')!;
 
   _saveTripHistory(var rating) async {
     await FirebaseFirestore.instance
@@ -26,7 +30,9 @@ class RateRide extends StatelessWidget {
       'destination': destinationAddress,
       'source': sourceAddress,
       'rating': rating,
-      'tripTime': tripTime,
+      //'tripTime': tripTime,
+      'tripTime': Timestamp.fromDate(pickUpTime),
+      'dropOffTime': Timestamp.fromDate(dropOffTime),
     });
   }
 

@@ -43,7 +43,7 @@ dependencies:
   flutter_native_splash: ^2.2.16
   cached_network_image: ^3.3.1
   shared_preferences: ^2.2.3
-  carousel_slider: ^4.2.1
+  #carousel_slider: ^4.2.1
   dio: ^4.0.4
   flutter_dotenv: ^5.1.0
   flutter_rating_bar: ^4.0.1
@@ -54,11 +54,24 @@ dependencies:
   latlong2: ^0.9.1
   firebase_database: ^10.5.7
   flutter_svg: ^2.0.10+1
+  google_maps_flutter: ^2.6.1
+  url_launcher: ^6.3.0
+  flutter_polyline_points: ^2.1.0
+  animated_text_kit: ^4.2.2
+  
+  #location: ^6.0.2
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/cab_icon.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -101,12 +114,18 @@ flutter:
     - family: Signatra
       fonts:
         - asset: fonts/Signatra.ttf
+    - family: LuckiestGuy
+      fonts:
+        - asset: fonts/LuckiestGuy-Regular.ttf
     - family: Brand-Regular
       fonts:
         - asset: fonts/bolt-regular.ttf
     - family: Brand Bold
       fonts:
         - asset: fonts/bolt-semibold.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Light.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

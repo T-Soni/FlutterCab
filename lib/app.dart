@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Brand-Regular',
         primarySwatch: Colors.amber,
       ),
       home: const Splash(),

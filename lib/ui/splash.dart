@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cab/Pages/auth_page.dart';
@@ -23,7 +24,6 @@ class _SplashState extends State<Splash> {
 
   void initializeLocationAndSave() async {
     //Ensure all permissions are collected for locations
-
     bool? serviceEnabled;
 
     LocationPermission permission;
@@ -53,7 +53,9 @@ class _SplashState extends State<Splash> {
     sharedPreferences.setDouble('latitude', locationData.latitude);
     sharedPreferences.setDouble('longitude', locationData.longitude);
     sharedPreferences.setString('current-address', currentAddress);
+  }
 
+  void navigateToNextPage() {
     Navigator.pushAndRemoveUntil(
         // ignore: use_build_context_synchronously
         context,
@@ -85,22 +87,39 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return const Material(
+    var colorizeColors = [
+      Colors.black,
+      Colors.grey,
+      Colors.grey[700]!,
+      Colors.white,
+    ];
+    const colorizeTextStyle = TextStyle(
+      fontSize: 42.0,
+      fontFamily: 'LuckiestGuy',
+    );
+    return Material(
       color: Colors.amber,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Icon(
+        const Icon(
           CupertinoIcons.car_detailed,
           color: Colors.black,
           size: 120,
         ),
-        Text(
-          'Flutter Cab',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+        SizedBox(
+          width: 250.0,
+          child: Center(
+            child: AnimatedTextKit(
+              animatedTexts: [
+                ColorizeAnimatedText('Flutter Cab',
+                    textStyle: colorizeTextStyle,
+                    colors: colorizeColors,
+                    textAlign: TextAlign.center),
+              ],
+              isRepeatingAnimation: false,
+              onFinished: navigateToNextPage,
+            ),
           ),
-        ),
+        )
       ]),
     );
   }

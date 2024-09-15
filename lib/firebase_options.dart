@@ -57,7 +57,8 @@ class DefaultFirebaseOptions {
     appId: '1:62587018666:android:88625057c2d3e0b8f65fd3',
     messagingSenderId: '62587018666',
     projectId: 'fluttercab-cfd85',
-    databaseURL: 'https://fluttercab-cfd85-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://fluttercab-cfd85-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'fluttercab-cfd85.appspot.com',
   );
 }

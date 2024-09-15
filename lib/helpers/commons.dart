@@ -8,12 +8,14 @@ String getDropOffTime(num duration) {
       DateTime.now().add(Duration(minutes: minutes, seconds: seconds));
   String dropOffTime = DateFormat.jm().format(tripEndDateTime);
   DateTime now = DateTime.now();
-  String pickUpTime = DateFormat.jm().format(now);
-  String formattedDate = DateFormat('dd.MM.yyyy ').format(now);
-  print('Current date and time: $formattedDate');
-  String tripTime = formattedDate + pickUpTime + '->' + dropOffTime;
-  sharedPreferences.setString('tripTime', tripTime);
-  print(tripTime);
+  // String pickUpTime = DateFormat.jm().format(now);
+  // String formattedDate = DateFormat('dd.MM.yyyy ').format(now);
+  // print('Current date and time: $formattedDate');
+  // String tripTime = formattedDate + pickUpTime + '->' + dropOffTime;
+  // sharedPreferences.setString('tripTime', tripTime);
+  sharedPreferences.setString('dropOffTime', tripEndDateTime.toIso8601String());
+  sharedPreferences.setString('pickUpTime', now.toIso8601String());
+  print(now.toIso8601String());
   print(dropOffTime);
   return dropOffTime;
 }

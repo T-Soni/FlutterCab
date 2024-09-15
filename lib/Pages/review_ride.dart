@@ -179,7 +179,11 @@ class _ReviewRideState extends State<ReviewRide> {
               ),
             ),
             ReviewRideBottomSheet(
-                distance: distance, dropOffTime: dropOffTime, rate: rate),
+              distance: distance,
+              dropOffTime: dropOffTime,
+              rate: rate,
+              modifiedResponse: widget.modifiedResponse,
+            ),
           ],
         ),
       ),

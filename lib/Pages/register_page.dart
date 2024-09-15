@@ -21,6 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -53,6 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
             .set({
           'name': nameController.text,
           'email': emailController.text,
+          'phone': phoneController.text,
           'role': 'user',
           'driver': widget.role == 'driver' ? true : false,
         });
@@ -138,6 +140,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   MyTextField(
                     controller: emailController,
                     hintText: 'Email',
+                    obscureText: false,
+                  ),
+                  const SizedBox(height: 10),
+                  //phone textfield
+                  MyTextField(
+                    controller: phoneController,
+                    hintText: 'Phone',
                     obscureText: false,
                   ),
 
@@ -229,7 +238,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             ),

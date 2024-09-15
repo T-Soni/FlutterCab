@@ -47,11 +47,11 @@ Future<Map> getParsedReverseGeocoding(LatLng latlng) async {
       'name': feature['text'],
       'address': feature['place_name'].split('${feature['text']}, ')[1],
       'place': feature['place_name'],
-      'location': latlng
+      'location': latlng,
     };
     return revGeocode;
   } else {
-    return {}; // empty response
+    return {}; // returns an empty response
   }
 }
 
