@@ -5,5 +5,6 @@
     "cSpell.words": [
         "firestore"
     ],
-    "cmake.sourceDirectory": "/home/tanushree/App Projects/flutter_cab/linux"
+    "cmake.sourceDirectory": "/home/tanushree/App Projects/flutter_cab/linux",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
